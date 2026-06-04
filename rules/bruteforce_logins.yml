@@ -1,0 +1,17 @@
+title: Brute Force - Multiple Failed Logins from Single Source
+id: rule-bruteforce-001
+status: experimental
+description: Flags >= 10 authentication failures from one source IP within 5 minutes.
+logsource:
+  category: authentication
+detection:
+  selection:
+    event_type: auth_failure
+  timeframe: 300
+  condition: selection | count() by src_ip >= 10
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110
+falsepositives:
+  - Misconfigured service accounts or a user who forgot their password.

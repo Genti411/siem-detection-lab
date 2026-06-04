@@ -1,0 +1,17 @@
+title: Large Outbound Transfer (Possible Data Exfiltration)
+id: rule-exfil-001
+status: experimental
+description: Network flow with an unusually large outbound byte count (>= 100 MB).
+logsource:
+  category: network_connection
+detection:
+  selection:
+    event_type: network_flow
+    bytes_out|gte: 100000000
+  condition: selection
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1048
+falsepositives:
+  - Legitimate backups or large file uploads.
